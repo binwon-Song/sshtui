@@ -7,11 +7,11 @@ import (
 )
 
 func main() {
-	cfg, err := config.LoadConfig("data/servers.yaml")
+	cfg, err := config.LoadConfig("")
+
 	if err != nil {
 		log.Fatalf("서버 설정 로딩 실패: %v", err)
 	}
 
 	ui.StartUI(cfg)
 }
-

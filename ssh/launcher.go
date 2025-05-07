@@ -18,4 +18,3 @@ func Connect(server config.Server) error {
 
 	return cmd.Run()
 }
-
