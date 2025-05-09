@@ -89,10 +89,12 @@ func (sf *ServerForm) initialize() {
 		sf.pages.RemovePage("modal")
 	})
 
-	sf.form.SetBorder(true).
-		SetTitle("서버 추가").
-		SetTitleAlign(tview.AlignLeft)
+	sf.form.
+		SetBorder(true).
+		SetTitle("Add Server").
+		SetTitleAlign(tview.AlignCenter)
 
+	sf.form.SetButtonsAlign(tview.AlignCenter)
 	sf.form.SetInputCapture(sf.handleKeyEvents)
 }
 
@@ -132,7 +134,7 @@ func (sf *ServerForm) GetPrimitive() *tview.Form {
 func CreateModalFlex(form tview.Primitive) *tview.Flex {
 	modalFlex := tview.NewFlex().SetDirection(tview.FlexRow)
 	modalWidth := 40
-	modalHeight := 14
+	modalHeight := 15
 	rightPadding := 2
 	topPadding := 2
 
