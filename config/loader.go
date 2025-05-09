@@ -8,10 +8,11 @@ import (
 )
 
 type Server struct {
-	Name string `yaml:"name"`
-	Host string `yaml:"host"`
-	User string `yaml:"user"`
-	Port int    `yaml:"port"`
+	Name          string `yaml:"name"`
+	Host          string `yaml:"host"`
+	User          string `yaml:"user"`
+	Port          int    `yaml:"port"`
+	EncryptedPass string `yaml:"encrypted_pass,omitempty"` // 암호화된 비밀번호
 }
 
 type Config struct {
