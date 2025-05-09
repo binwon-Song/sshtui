@@ -7,8 +7,9 @@ goal of project is deploy linux package and brew package
 
 
 # build
-go mod tidy
-go build main
-./main or add bash_profile
+go mod tidy  
+go build main  
+./main or add bash_profile  
+
 
 once add bash_profile, use sshtui every turn on bash.
