@@ -3,6 +3,7 @@ package components
 import (
 	"fmt"
 	"sshtui/config"
+	"sshtui/crypto"
 
 	"github.com/gdamore/tcell/v2"
 	"github.com/rivo/tview"
@@ -47,8 +48,8 @@ func NewServerForm(app *tview.Application, pages *tview.Pages, onSave func(confi
 }
 
 func (sf *ServerForm) initialize() {
-	var name, user, host string
-	var port int = 22 // Initialize port with the default value
+	var name, user, host, password string
+	var port int = 22
 
 	sf.form.AddInputField("Name", "", 20, nil, func(text string) { name = text })
 	sf.form.AddInputField("User", "", 20, nil, func(text string) { user = text })
@@ -58,16 +59,28 @@ func (sf *ServerForm) initialize() {
 			fmt.Sscanf(text, "%d", &port)
 		}
 	})
+	sf.form.AddPasswordField("Password (선택)", "", 20, '*', func(text string) { password = text })
 
 	sf.form.AddButton("추가", func() {
-		newServer := config.Server{
-			Name: name,
-			User: user,
-			Host: host,
-			Port: port,
+		var encryptedPass string
+		if password != "" {
+			// 비밀번호가 입력된 경우에만 암호화
+			encrypted, err := crypto.Encrypt(password)
+			if err != nil {
+				sf.debug(fmt.Sprintf("비밀번호 암호화 실패: %v", err))
+				return
+			}
+			encryptedPass = encrypted
 		}
 
-		// 서버 추가 및 UI 업데이트만 수행
+		newServer := config.Server{
+			Name:          name,
+			User:          user,
+			Host:          host,
+			Port:          port,
+			EncryptedPass: encryptedPass,
+		}
+
 		sf.onSave(newServer)
 		sf.pages.RemovePage("modal")
 	})
@@ -120,16 +133,16 @@ func CreateModalFlex(form tview.Primitive) *tview.Flex {
 	modalFlex := tview.NewFlex().SetDirection(tview.FlexRow)
 	modalWidth := 40
 	modalHeight := 14
-	leftPadding := 5
+	rightPadding := 2
 	topPadding := 2
 
 	return modalFlex.
 		AddItem(nil, topPadding, 0, false).
 		AddItem(
 			tview.NewFlex().
-				AddItem(nil, leftPadding, 0, false).
+				AddItem(nil, 0, 1, false).
 				AddItem(form, modalWidth, 0, true).
-				AddItem(nil, leftPadding, 0, false),
+				AddItem(nil, rightPadding, 0, false),
 			modalHeight, 0, true,
 		).
 		AddItem(nil, topPadding, 0, false)
