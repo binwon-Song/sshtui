@@ -65,7 +65,7 @@ func LoadConfig(path string) (*Config, error) {
 	return &cfg, nil
 }
 
-func SaveConfig(path string, cfg *Config) error {
+func SaveConfig(cfg *Config) error {
 	configPath, err := getConfigPath()
 	if err != nil {
 		return err

@@ -47,6 +47,12 @@ func (sl *ServerList) refreshItems() {
 
 func (sl *ServerList) AddServer(server config.Server) {
 	sl.cfg.Servers = append(sl.cfg.Servers, server)
+
+	// YAML 파일에 저장
+	if err := config.SaveConfig(sl.cfg); err != nil {
+		log.Printf("설정 저장 실패: %v", err)
+	}
+
 	sl.refreshItems()
 }
 
