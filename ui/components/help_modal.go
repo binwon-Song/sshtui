@@ -6,6 +6,7 @@ func NewHelpModal(onClose func()) *tview.Modal {
 	helpText := "SSH 서버 관리 프로그램\n\n" +
 		"[yellow]키보드 단축키:[white]\n" +
 		"[a[] : 새로운 서버 추가\n" +
+		"[d[] : 선택한 서버 삭제\n" +
 		"[h[] : 이 도움말 표시\n" +
 		"[q[] : 프로그램 종료\n" +
 		"[ESC[] : 현재 화면 닫기\n\n" +

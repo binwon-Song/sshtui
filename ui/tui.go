@@ -13,7 +13,7 @@ func StartUI(cfg *config.Config) {
 	pages := tview.NewPages()
 
 	// 서버 리스트 생성
-	serverList := components.NewServerList(app, cfg)
+	serverList := components.NewServerList(app, cfg, pages)
 
 	// 하단 네비게이션 바
 	navbar := components.NewNavbar()
