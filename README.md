@@ -11,5 +11,10 @@ go mod tidy
 go build main  
 ./main or add bash_profile  
 
+# todo
+---
+- scp
+- ui update
+- least server maintain to upper
 
 once add bash_profile, use sshtui every turn on bash.
